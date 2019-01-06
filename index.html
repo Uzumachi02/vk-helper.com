@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Coming soon!!!</title>
     <style type="text/css">
-      html { display: flex; justify-content: center; align-items: center; height: 100%; }
+      html {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
     </style>
+    <script
+      src="https://vk.com/js/api/openapi.js"
+      type="text/javascript"
+    ></script>
   </head>
   <body>
-    <img src="jdun.png">
+    <a href="javascript:;" onclick="login()"> <img src="jdun.png" /> </a>
+
+    <script type="text/javascript">
+      function loginVk(appId, perms) {
+        return new Promise((resolve, reject) => {
+          VK.init({ apiId: appId });
+          VK.Auth.login(response => {
+            if (response.session) {
+              resolve(response);
+            } else {
+              reject(new Error("Не удалось авторизоваться"));
+            }
+          }, perms);
+        });
+      }
+
+      function login() {
+        loginVk(6000579, 2 | 8192).then(res => {
+          console.log("res", res);
+        });
+      }
+    </script>
   </body>
 </html>
